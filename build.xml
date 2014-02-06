@@ -1,0 +1,36 @@
+<project name="Gossiply" default="compile" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="classes" />
+	<property name="doc" location="doc" />
+
+	<!-- Packages to be included in the Javadoc generation -->
+	<property name="packages" value="dummy.*"/>
+
+	<!-- Path for compilation -->
+	<path id="compile.path">
+        <pathelement location="jep-2.3.0.jar" />
+        <pathelement location="djep-1.0.0.jar" />
+        <pathelement location="peersim-1.0.5.jar" />
+	</path>
+
+	<target name="compile">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" classpathref="compile.path" />
+	</target>
+
+    <target name="compress" depends="compile">
+        <jar destfile="gossiply.jar" basedir="classes" />
+    </target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} directory tree -->
+		<delete dir="${build}" />
+	</target>
+
+
+
+</project>
